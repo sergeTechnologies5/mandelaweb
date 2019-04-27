@@ -1,0 +1,146 @@
+*{
+    padding: 0%;
+    margin: 0%
+    
+}
+
+body{
+    padding: 5px;
+    background-color: azure;
+    text-align: center;
+}
+
+#header_ul{
+	background-color:#d2d5f8;
+	
+}
+.navbar-default{
+	background-color:#d2d5f8;
+}
+#header_ul li{
+	display:inline-block;
+	list-style:none;
+	font-family:Nyala;
+	font-size:30px;
+    padding:5px;
+}
+.head_wrapper{
+	text-align:center;
+	
+}
+#header_ul li a{
+	 text-decoration:none;
+	 padding:20px;
+	 color:#0303f9;
+	
+}
+#header_ul li a:hover{
+	color:#f99903;
+	
+	
+}
+.body_home{
+	
+	height:300%;
+}
+.form{
+	margin-top:5%;
+	padding-left:30px;
+	padding-right: 30px;
+	padding-bottom: 30px;
+	padding-top: 5px;
+	background: #fcf4f4;
+	border-radius: 25px;
+    border: 2px solid #8AC007;
+     box-shadow: 5px 5px 10px darkgoldenrod;
+
+}
+.btn{
+	background:rgb(56,0,0) ;
+	box-shadow: 5px 5px 10px darkgoldenrod;
+}
+.btn: hover{
+	background: rgb(100,0,255);
+}
+#row-login-admin{
+	
+}
+.h5_form{
+	margin-left: 50%;
+	font-family: Nyala;
+	font-size: 30px;
+	  color: white;
+    text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
+}
+.logo{
+	height: 100px;
+	width: 100px;
+	border-radius: 100px;
+	margin-left: 35%;
+}
+.img{
+	border-radius: 1000px;
+}
+.body-image-text:hover{
+	background-color: white;
+
+}
+
+#textarea{
+	width:100%; height:100px;
+}
+
+
+/*Date picker*/
+.ui-datepicker {
+   font-size: 130%;
+   
+   }
+   
+   .ui-datepicker-calendar{
+   background-color: #ff0000;
+   }
+
+ .ui-datepicker-calendar{
+   background-color: #f4fafe;
+   }
+   .ui-state-default{
+    padding:5px;
+   }
+    .ui-datepicker-next{
+   font-family:Nyala;
+   font-size:20px;
+   text-align:center;
+   margin-left:65%;
+  }
+  .ui-datepicker-title{
+  margin-left:20%;
+  }
+   .ui-widget-header {
+   background: white;
+    }
+
+	.ui-datepicker-title{
+	 color:white;
+	}
+
+	
+ .ui-datepicker-year{
+    color:blue;
+ }
+ .ui-datepicker-month{
+  color:blue;
+ }
+ 
+  .ui-widget-content .ui-state-default:hover{
+    background: #77CC6D;
+    border-radius: 2px;
+     }
+  td, th{
+  padding:10px;
+  }
+ 
+  .datepicker.dropdown-menu {
+    position: relative;
+    z-index: 9999 !important;
+}
