@@ -13,7 +13,8 @@
 				$nationalid = $json_data['nationalid'];
 				$password = $json_data['password'];
 				$description = $json_data['description'];
-				$query = "INSERT INTO members (firstname,group_id,nationalid,password,email,lastname,description,phonenumber) VALUES ('$firstname','$group_id','$nationalid','$password','$email','$lastname','$description','$phonenumber')";
+				$role_id = 2;
+				$query = "INSERT INTO members (firstname,group_id,role_id,nationalid,password,email,lastname,description,phonenumber) VALUES ('$firstname','$group_id','$role_id','$nationalid','$password','$email','$lastname','$description','$phonenumber')";
 				try {
 					
 					$response = $bdd->execute($query);	

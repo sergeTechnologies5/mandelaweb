@@ -61,7 +61,12 @@
 											<td>'.$value['user_id'].'</td>
 											<td>'.$value['description'].'</td>
                                         	<td>'.$value['amount'].'</td>
-                                        	<td>'.$value['date_created'].'</td>
+											<td>'.$value['date_created'].'</td>
+											<td>'.'<a href="loanapprove.php/?id='.$value['id'].'"
+											class="pull-right"><em class="fa fa-lg fa-plus"></em></a>'.'</td>
+											<td>'.'<a href="declinedloan.php/?id='.$value['id'].'"
+											class="pull-right"><em class="fa fa-lg fa-close"></em></a>'.'</td>
+                                        	
 										</tr>';
 										}
                                         ?>

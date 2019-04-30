@@ -59,7 +59,9 @@
                                         	<td>'.$value['phonenumber'].'</td>
                                         	<td>'.$value['user_id'].'</td>
                                         	<td>'.$value['amount'].'</td>
-                                        	<td>'.$value['date_created'].'</td>
+											<td>'.$value['date_created'].'</td>
+											<td>'.'<a href="deletetransaction.php/?id='.$value['id'].'"
+											class="pull-right"><em class="fa fa-lg fa-close"></em></a>'.'</td>
 										</tr>';
 										}
                                         ?>

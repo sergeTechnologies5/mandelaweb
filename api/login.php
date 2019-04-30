@@ -11,7 +11,8 @@ if(isset($json_data['email'])&&isset($json_data['password']))
 		$username = $json_data['email'];
 		$password = $json_data['password'];
 		// //build query
-		$query = "SELECT * FROM members WHERE email='$username' AND password='$password'";
+		$role_id = 2;
+		$query = "SELECT * FROM members WHERE email='$username' AND password='$password' AND role_id='$role_id'";
 		//Execute query
 			$user = $bdd->getOne($query); // select ALL from allrecoards	
 			$count = count($user);

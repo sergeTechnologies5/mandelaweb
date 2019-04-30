@@ -81,8 +81,8 @@ $admins = 'CREATE TABLE IF NOT EXISTS groups (
     //loans
     $loans = 'CREATE TABLE IF NOT EXISTS loans (
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-      description VARCHAR(1000) NOT NULL,
-      status VARCHAR(1000) NOT NULL,
+      description VARCHAR(1000) DEFAULT "",
+      status VARCHAR(1000) DEFAULT "",
       amount int NOT NULL,
       group_id INT NOT NULL,
       user_id INT NOT NULL,

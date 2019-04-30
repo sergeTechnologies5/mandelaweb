@@ -4,16 +4,6 @@
 	
 	</head>
 <body>
-	<nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
-			<?php
-			include_once("header.php");
-		
-			?>
-	</nav>
-	<?php
-		require_once('sidebar.php');
-		
-	?>
 	
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 		<div class="row">
@@ -30,7 +20,8 @@
 			<?php
 					include_once("../config/config.php");
 					$bdd = new db();
-				
+                    session_start();
+                    $group_id = $_SESSION['group_id'];
 					$query = "SELECT * FROM loans WHERE group_id='$group_id'";
 					$members =$bdd->getAll($query);
 					
@@ -66,10 +57,8 @@
 										}
                                         ?>
                                     </tbody>
-								</table>
-								<form action="generatepdf.php" method="post">
-								<button class="btn btn-primary">Generate</button>
-								</form>
+                                </table>
+								
 								
                             </div>
 					</div>
