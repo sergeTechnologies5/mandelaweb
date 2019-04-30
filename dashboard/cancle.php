@@ -15,7 +15,7 @@
 		<div class="row">
 			<ol class="breadcrumb">
 				<li><a href="index.php">
-					<em class="fa fa-home"></em>
+					<em class="fa fa-users"></em>
 				</a></li>
 				<li class="active">All Members</li>
 			</ol>

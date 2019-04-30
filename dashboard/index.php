@@ -16,7 +16,11 @@
 	</nav>
 	<?php
 			require_once('sidebar.php');
-		 $group_id = $_SESSION['id'];
+		 $group_id = $_SESSION['group_id'];
+		 $id = $_SESSION['id'];
+		 if($group_id==1){
+			header('location:creategroup.php'); 
+		 }
 		include_once("../config/config.php");
 		$bdd = new db();
 		$querymembers = "SELECT * FROM members WHERE group_id='$group_id'";
@@ -26,11 +30,34 @@
 		$comments =$bdd->getAll($querycomments);
 			//total amount
 		$querytransations = "SELECT * FROM transations WHERE group_id='$group_id'";
-	  $transations =$bdd->getAll($querytransations);
+	    $transations =$bdd->getAll($querytransations);
 			//comments count
 			//users count
 			$users_count = count($members);
 			$comments_count = count($comments);
+
+			//loans count
+			$queryloans = "SELECT * FROM loans WHERE group_id='$group_id'";
+	    	$loans =$bdd->getAll($queryloans);
+			//comments count
+			//users count
+			$loans_count = count($loans);
+
+			//loans approved count
+			$approved ="1";
+			$queryl = "SELECT * FROM loans WHERE group_id='$group_id' AND status LIKE '%$approved%'";
+	    $loansapproved =$bdd->getAll($queryl);
+		
+			$approvedloans_count = count($loansapproved);
+
+			//loans declined count
+			$description = "0" ;
+			$query = "SELECT * FROM loans WHERE group_id='$group_id' AND status LIKE '%$description%'";
+	    $loansdeclined =$bdd->getAll($query);
+			//comments count
+			//users count
+			$declinedloans_count = count($loansdeclined);
+			
 
 	?>
 		
@@ -47,6 +74,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<h1 class="page-header">Dashboard</h1>
+					
 				</div>
 			</div><!--/.row-->			
 			<div class="panel panel-container">
@@ -88,6 +116,16 @@
 							</div>
 						</div>
 					</div>
+					<a href="view.php">
+					<div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+						<div class="panel panel-read panel-widget border-right">
+							<div class="row no-padding"><em class="fa fa-xl fa-money color-teal"></em>
+								<div class="large"><a href="loanapproval.php" class="btn btn-success" >A</a> <?php echo $approvedloans_count?> <a class="btn btn-danger" href="loandecline.php">D</a> <?php echo $declinedloans_count?></div>
+								<div class="text-muted">All Loans <?php echo $loans_count; ?></div>
+							</div>
+						</div>
+					</div>
+					</a>
 					
 				</div><!--/.row-->
 			</div>

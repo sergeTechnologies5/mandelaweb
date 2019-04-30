@@ -11,11 +11,10 @@
 		$username = $_POST['email'];
 		$password = $_POST['password'];
 
-		
-		
+		$role_id = 1;
 		
 		// //build query
-		$query = "SELECT * FROM admins WHERE email='$username' AND password='$password'";
+		$query = "SELECT * FROM members WHERE email='$username' AND password='$password' AND role_id='$role_id'";
 		//Execute query
 			$user = $bdd->getAll($query); // select ALL from allrecoards	
 			$count = count($user);
@@ -27,6 +26,17 @@
 				}
 				$_SESSION['username'] = $username;
 				$_SESSION['id'] = $id;
+
+				$query = "SELECT * FROM groups WHERE  admin_id='$id'";
+				$user = $bdd->getOne($query); // select ALL from allrecoards	
+				$count = count($user);
+				if($count>=1){
+					$_SESSION['group_id']=$user['id'];
+				}else{
+						//Execute query
+					$_SESSION['group_id'] = 1;
+				}
+				
 				header("location:../dashboard/index.php");
 			
 			}else{

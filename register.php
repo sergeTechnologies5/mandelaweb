@@ -10,18 +10,30 @@ $bdd = new db(); // create a new object, class db()
 
 
      //admins
-$admins = 'CREATE TABLE IF NOT EXISTS admins (
+$admins = 'CREATE TABLE IF NOT EXISTS groups (
    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-   firstname VARCHAR(100) NOT NULL,
-         password VARCHAR(100) NOT NULL,
-         email VARCHAR(100) NOT NULL,
-         lastname VARCHAR(100) DEFAULT "",
-         description VARCHAR(1000) DEFAULT "",
+   groupname VARCHAR(100) NOT NULL,
+   groupdescription VARCHAR(100) NOT NULL,
+   target VARCHAR(100) NOT NULL,
+   admin_id INT NOT NULL,
    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
    date_modified DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
    )';
    try{
-    $response = $bdd->execute($admins);  
+    $response = $bdd->execute($admins); 
+    $count = count($bdd->getAll("SELECT * FROM groups"));
+    if($count<1){
+      $groupname = "group one";
+      $groupdescription = "group one";
+      $target = 0;
+      
+      $query = "INSERT INTO groups (groupname,admin_id,groupdescription,target) VALUES ('$groupname','1','$groupdescription','$target')";
+      $response = $bdd->execute($query);
+      
+    }else{
+      
+    }
+    	
  } catch (Exception $e) {
  echo 'Caught exception: ',  $e->getMessage(), "\n";
  }
@@ -30,22 +42,63 @@ $admins = 'CREATE TABLE IF NOT EXISTS admins (
       id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
       firstname VARCHAR(100) NOT NULL,
       group_id INT NOT NULL,
+      role_id INT NOT NULL,
       nationalid VARCHAR(100) NOT NULL,
           password VARCHAR(100) NOT NULL,
           email VARCHAR(100) NOT NULL,
           lastname VARCHAR(100) DEFAULT "",
           phonenumber VARCHAR(100) NOT NULL,
           description VARCHAR(1000) DEFAULT "",
-          FOREIGN KEY (group_id) REFERENCES admins(id) ON DELETE CASCADE,
+          FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
       date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
       date_modified DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
       )';
       try{
        $response = $bdd->execute($members);  
+       $count = count($bdd->getAll("SELECT * FROM members"));
+       if( $count<1){
+         $phonenumber = "070000";
+         $nationalid = "00000";
+         $lastname = "admin";
+          $firstname = "admin";
+          $lastname = "admin";;
+          $email = "admin@gmail.com";;
+          $password = "admin";
+          $description = "admin";;
+          $role_id = 1;
+          $group_id = 1;
+          
+          $query = "INSERT INTO members (phonenumber,nationalid,group_id,firstname,lastname,description,email,password,role_id) values('$phonenumber','$nationalid','$group_id','$firstname','$lastname','$description','$email','$password','$role_id')";
+              try {
+               $response = $bdd->execute($query);
+            } catch (Exception $e) {}
+       }else{
+         
+       }
     } catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
-
+    //loans
+    $loans = 'CREATE TABLE IF NOT EXISTS loans (
+      id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      description VARCHAR(1000) NOT NULL,
+      status VARCHAR(1000) NOT NULL,
+      amount int NOT NULL,
+      group_id INT NOT NULL,
+      user_id INT NOT NULL,
+      FOREIGN KEY (user_id) REFERENCES members(id) ON DELETE CASCADE,
+      FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
+      date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
+      date_modified DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+      )';
+     
+   
+      try {
+          $response = $bdd->execute($loans);
+      } catch (Exception $th) {
+          echo $th->getMessage();
+      }
+    
     //comments
 $comments = 'CREATE TABLE IF NOT EXISTS comments (
    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -53,7 +106,7 @@ $comments = 'CREATE TABLE IF NOT EXISTS comments (
    group_id INT NOT NULL,
    user_id INT NOT NULL,
    FOREIGN KEY (user_id) REFERENCES members(id) ON DELETE CASCADE,
-         FOREIGN KEY (group_id) REFERENCES admins(id) ON DELETE CASCADE,
+         FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
    date_modified DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
    )';
@@ -73,7 +126,7 @@ $transations = 'CREATE TABLE IF NOT EXISTS transations (
       user_id INT NOT NULL,
    phonenumber VARCHAR(100) NOT NULL,
       FOREIGN KEY (user_id) REFERENCES members(id) ON DELETE CASCADE,
-   FOREIGN KEY (group_id) REFERENCES admins(id) ON DELETE CASCADE,
+   FOREIGN KEY (group_id) REFERENCES groups(id) ON DELETE CASCADE,
    date_created TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
    date_modified DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)';
    try{
@@ -83,18 +136,20 @@ $transations = 'CREATE TABLE IF NOT EXISTS transations (
  echo 'Caught exception: ',  $e->getMessage(), "\n";
     }
 
-   if(isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['email'])&&isset($_POST['description'])&&isset($_POST['password'])&&isset($_POST['signup']))
+   if(isset($_POST['nationalid'])&&isset($_POST['phonenumber'])&&isset($_POST['firstname'])&&isset($_POST['lastname'])&&isset($_POST['email'])&&isset($_POST['description'])&&isset($_POST['password'])&&isset($_POST['signup']))
    {
-       
+      $phonenumber = $_POST['phonenumber'];
+      $nationalid = $_POST['nationalid'];
+      $lastname = $_POST['lastname'];
        $firstname = $_POST['firstname'];
        $lastname = $_POST['lastname'];
        $email = $_POST['email'];
        $password = $_POST['password'];
        $description = $_POST['description'];
-
+       $role_id = 1;
+       $group_id = 1;
        
-       
-       $query = "INSERT INTO admins (firstname,lastname,description,email,password) values('$firstname','$lastname','$description','$email','$password')";
+       $query = "INSERT INTO members (phonenumber,nationalid,group_id,firstname,lastname,description,email,password,role_id) values('$phonenumber','$nationalid','$group_id','$firstname','$lastname','$description','$email','$password','$role_id')";
            try {
             
             $response = $bdd->execute($query);	
@@ -114,6 +169,20 @@ $transations = 'CREATE TABLE IF NOT EXISTS transations (
 <div class="container">  
    <div class="row">
    <form action="register.php" method="POST" class="form-horizontal" role="form">
+   <div class="form-group">
+      <label for="firstname" class="col-sm-4 control-label">Phone Number</label>
+      <div class="col-sm-4">
+         <input type="text" class="form-control" name="phonenumber" 
+            placeholder="Enter Phone Number">
+      </div>
+   </div>
+   <div class="form-group">
+      <label for="firstname" class="col-sm-4 control-label">National ID</label>
+      <div class="col-sm-4">
+         <input type="text" class="form-control" name="nationalid" 
+            placeholder="Enter National ID">
+      </div>
+   </div>
    <div class="form-group">
       <label for="firstname" class="col-sm-4 control-label">First Name</label>
       <div class="col-sm-4">

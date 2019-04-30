@@ -3,7 +3,7 @@
     $bdd = new db();
     //build query
     
-    $query = "SELECT id,email,description FROM admins";
+    $query = "SELECT * FROM groups";
     //Execute query
         $groups = $bdd->getAll($query); // select ALL from allrecoards	
         $count = count($groups);
